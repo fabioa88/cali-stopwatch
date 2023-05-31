@@ -39,7 +39,7 @@ function stopTimer() {
 function reset() {
   stopTimer();
   elapsedTime = 0;
-  updateTime();
+  timeDisplay.textContent = formatTime(elapsedTime);
 }
 
 function updateTime() {
