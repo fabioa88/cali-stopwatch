@@ -23,4 +23,46 @@ function startStop() {
 }
 
 function startTimer() {
-  startTime
+  startTime = Date.now() - elapsedTime;
+  timerInterval = setInterval(updateTime, 10);
+  startStopButton.textContent = "Stop";
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  startStopButton.textContent = "Start";
+}
+
+function reset() {
+  stopTimer();
+  elapsedTime = 0;
+  updateTime();
+}
+
+function updateTime() {
+  var currentTime = Date.now();
+  elapsedTime = currentTime - startTime;
+  var formattedTime = formatTime(elapsedTime);
+  timeDisplay.textContent = formattedTime;
+}
+
+function formatTime(time) {
+  var milliseconds = Math.floor((time % 1000) / 10);
+  var seconds = Math.floor((time / 1000) % 60);
+  var minutes = Math.floor((time / (1000 * 60)) % 60);
+  var hours = Math.floor(time / (1000 * 60 * 60));
+
+  return (
+    pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + pad(milliseconds)
+  );
+}
+
+function pad(num) {
+  return num.toString().padStart(2, "0");
+}
+
+function incrementSetCount() {
+  setCount++;
+  setCountDisplay.textContent = setCount;
+}
