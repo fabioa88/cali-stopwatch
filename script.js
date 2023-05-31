@@ -1,75 +1,58 @@
-var startTime;
-var elapsedTime = 0;
-var timerInterval;
+// Stopwatch variables
+let startTime;
+let elapsedTime = 0;
+let timerInterval;
 
-var setCount = 0;
+// Get timer element
+const timerElement = document.getElementById('time');
 
-var timeDisplay = document.getElementById("time");
-var startStopButton = document.getElementById("startStopButton");
-var resetButton = document.getElementById("resetButton");
-var setCountDisplay = document.getElementById("setCount");
-var incrementButton = document.getElementById("incrementButton");
-var resetSetCountButton = document.getElementById("resetSetCountButton");
-
-startStopButton.addEventListener("click", startStop);
-resetButton.addEventListener("click", reset);
-incrementButton.addEventListener("click", incrementSetCount);
-resetSetCountButton.addEventListener("click", resetSetCount);
-
-function startStop() {
-  if (timerInterval) {
-    stopTimer();
-  } else {
-    startTimer();
-  }
-}
-
-function startTimer() {
-  startTime = Date.now() - elapsedTime;
-  timerInterval = setInterval(updateTime, 10);
-  startStopButton.textContent = "Stop";
-}
-
-function stopTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  startStopButton.textContent = "Start";
-}
-
-function reset() {
-  stopTimer();
-  elapsedTime = 0;
-  timeDisplay.textContent = formatTime(elapsedTime);
-}
-
-function updateTime() {
-  var currentTime = Date.now();
-  elapsedTime = currentTime - startTime;
-  var formattedTime = formatTime(elapsedTime);
-  timeDisplay.textContent = formattedTime;
-}
-
+// Format time as HH:MM:SS
 function formatTime(time) {
-  var milliseconds = Math.floor((time % 1000) / 10);
-  var seconds = Math.floor((time / 1000) % 60);
-  var minutes = Math.floor((time / (1000 * 60)) % 60);
-  var hours = Math.floor(time / (1000 * 60 * 60));
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor((time % 3600) / 60);
+  const seconds = Math.floor(time % 60);
 
-  return (
-    pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + pad(milliseconds)
-  );
+  const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  return formattedTime;
 }
 
-function pad(num) {
-  return num.toString().padStart(2, "0");
+// Update the timer display
+function updateTimerDisplay() {
+  timerElement.textContent = formatTime(elapsedTime);
 }
 
-function incrementSetCount() {
-  setCount++;
-  setCountDisplay.textContent = setCount;
+// Start the stopwatch
+function startStopwatch() {
+  startTime = Date.now() - elapsedTime;
+  timerInterval = setInterval(() => {
+    elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+    updateTimerDisplay();
+  }, 1000);
 }
 
-function resetSetCount() {
-  setCount = 0;
-  setCountDisplay.textContent = setCount;
+// Stop the stopwatch
+function stopStopwatch() {
+  clearInterval(timerInterval);
 }
+
+// Reset the stopwatch
+function resetStopwatch() {
+  stopStopwatch();
+  elapsedTime = 0;
+  updateTimerDisplay();
+}
+
+// Add event listeners to buttons
+const startStopButton = document.getElementById('startStopButton');
+startStopButton.addEventListener('click', function() {
+  if (timerInterval) {
+    stopStopwatch();
+    startStopButton.textContent = 'Start';
+  } else {
+    startStopwatch();
+    startStopButton.textContent = 'Stop';
+  }
+});
+
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', resetStopwatch);
