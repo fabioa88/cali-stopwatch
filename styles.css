@@ -1,49 +1,43 @@
-body {
-  background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-
 .container {
-  margin: 50px auto;
   max-width: 400px;
-  background-color: white;
+  margin: 0 auto;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-  margin-top: 0;
-}
-
-.stopwatch {
+.stopwatch, .setCounter {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.setCounter {
-  margin-bottom: 40px;
-}
-
-p {
-  font-size: 24px;
+#time {
+  font-size: 32px;
   margin-bottom: 10px;
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-button:active {
-  background-color: #45a049;
+.setCounter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-button:focus {
-  outline: none;
+#setCountContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#setCountContainer label {
+  margin-right: 5px;
+}
+
+#controlsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
