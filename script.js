@@ -9,10 +9,12 @@ var startStopButton = document.getElementById("startStopButton");
 var resetButton = document.getElementById("resetButton");
 var setCountDisplay = document.getElementById("setCount");
 var incrementButton = document.getElementById("incrementButton");
+var resetSetCountButton = document.getElementById("resetSetCountButton");
 
 startStopButton.addEventListener("click", startStop);
 resetButton.addEventListener("click", reset);
 incrementButton.addEventListener("click", incrementSetCount);
+resetSetCountButton.addEventListener("click", resetSetCount);
 
 function startStop() {
   if (timerInterval) {
@@ -64,5 +66,10 @@ function pad(num) {
 
 function incrementSetCount() {
   setCount++;
+  setCountDisplay.textContent = setCount;
+}
+
+function resetSetCount() {
+  setCount = 0;
   setCountDisplay.textContent = setCount;
 }
