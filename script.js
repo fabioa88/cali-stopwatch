@@ -33,6 +33,7 @@ function startStopwatch() {
 // Stop the stopwatch
 function stopStopwatch() {
   clearInterval(timerInterval);
+  timerInterval = null; // Set timerInterval to null
 }
 
 // Reset the stopwatch
