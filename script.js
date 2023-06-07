@@ -57,3 +57,33 @@ startStopButton.addEventListener('click', function() {
 
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetStopwatch);
+
+// Set counter variables
+let setCount = 0;
+
+// Get set count element
+const setCountElement = document.getElementById('setCount');
+
+// Increment the set counter
+function incrementSetCounter() {
+  setCount++;
+  updateSetCounterDisplay();
+}
+
+// Reset the set counter
+function resetSetCounter() {
+  setCount = 0;
+  updateSetCounterDisplay();
+}
+
+// Update the set counter display
+function updateSetCounterDisplay() {
+  setCountElement.textContent = setCount;
+}
+
+// Add event listeners to buttons
+const incrementButton = document.getElementById('incrementButton');
+incrementButton.addEventListener('click', incrementSetCounter);
+
+const resetSetCountButton = document.getElementById('resetSetCountButton');
+resetSetCountButton.addEventListener('click', resetSetCounter);
