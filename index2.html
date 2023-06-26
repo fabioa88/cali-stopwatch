@@ -1,76 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stopwatch</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <title>Stopwatch and Set Counter</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <h1 class="text-center my-5">Stopwatch</h1>
-    <div class="row justify-content-center">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="text-center" id="timer">00:00:00</h2>
-            <div class="text-center">
-              <button class="btn btn-primary mr-2" id="start">Start</button>
-              <button class="btn btn-danger" id="stop">Stop</button>
-            </div>
-          </div>
-        </div>
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto px-4 py-12">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-6">Stopwatch and Set Counter</h1>
+      <div class="flex items-center justify-center mb-6">
+        <span id="timer" class="text-5xl font-mono">00:00:00</span>
       </div>
-    </div>
-    <div class="row justify-content-center mt-5">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="text-center" id="set-counter">0</h2>
-            <div class="text-center">
-              <button class="btn btn-primary" id="increment">Increment Set</button>
-            </div>
-          </div>
-        </div>
+      <div class="flex items-center justify-center mb-6">
+        <button id="startStopBtn" class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">Start</button>
+        <button id="resetBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg">Reset</button>
+      </div>
+      <div class="flex items-center justify-center mb-6">
+        <span class="text-xl font-bold mr-2">Sets:</span>
+        <span id="setCounter" class="text-xl font-mono">0</span>
+      </div>
+      <div class="flex items-center justify-center">
+        <button id="incrementSetBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg">Increment Set</button>
       </div>
     </div>
   </div>
   <script>
-    var startTime, elapsedTime, timerInterval;
-    var setCounter = 0;
+    const timerElement = document.getElementById("timer");
+const startStopBtn = document.getElementById("startStopBtn");
+const resetBtn = document.getElementById("resetBtn");
+const incrementSetBtn = document.getElementById("incrementSetBtn");
+const setCounterElement = document.getElementById("setCounter");
 
-    function startTimer() {
-      startTime = new Date();
-      timerInterval = setInterval(updateTimer, 1000);
-    }
+let startTime;
+let elapsedTime = 0;
+let timerInterval;
 
-    function stopTimer() {
-      clearInterval(timerInterval);
-      elapsedTime = new Date() - startTime;
-    }
+function timeToString(time) {
+  let diffInHrs = time / 3600000;
+  let hh = Math.floor(diffInHrs);
 
-    function updateTimer() {
-      var currentTime = new Date() - startTime;
-      var hours = Math.floor(currentTime / 3600000);
-      var minutes = Math.floor((currentTime - hours * 3600000) / 60000);
-      var seconds = Math.floor((currentTime - hours * 3600000 - minutes * 60000) / 1000);
-      var timeString = padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
-      $("#timer").text(timeString);
-    }
+  let diffInMin = (diffInHrs - hh) * 60;
+  let mm = Math.floor(diffInMin);
 
-    function padZero(num) {
-      return (num < 10 ? "0" : "") + num;
-    }
+  let diffInSec = (diffInMin - mm) * 60;
+  let ss = Math.floor(diffInSec);
 
-    $("#start").click(startTimer);
-    $("#stop").click(stopTimer);
-    $("#increment").click(function() {
-      setCounter++;
-      $("#set-counter").text(setCounter);
-    });
+  let diffInMs = (diffInSec - ss) * 100;
+  let ms = Math.floor(diffInMs);
+
+  let formattedMM = mm.toString().padStart(2, "0");
+  let formattedSS = ss.toString().padStart(2, "0");
+  let formattedMS = ms.toString().padStart(2, "0");
+
+  return `${formattedMM}:${formattedSS}:${formattedMS}`;
+}
+
+function start() {
+  startTime = Date.now() - elapsedTime;
+  timerInterval = setInterval(function printTime() {
+    elapsedTime = Date.now() - startTime;
+    timerElement.innerHTML = timeToString(elapsedTime);
+  }, 10);
+  startStopBtn.innerHTML = "Stop";
+}
+
+function stop() {
+  clearInterval(timerInterval);
+  startStopBtn.innerHTML = "Start";
+}
+
+function reset() {
+  clearInterval(timerInterval);
+  startStopBtn.innerHTML = "Start";
+  elapsedTime = 0;
+  timerElement.innerHTML = "00:00:00";
+}
+
+function incrementSet() {
+  let currentSet = parseInt(setCounterElement.textContent);
+  setCounterElement.textContent = currentSet + 1;
+}
+
+startStopBtn.addEventListener("click", function () {
+  if (startStopBtn.textContent === "Start") {
+    start();
+  } else {
+    stop();
+  }
+});
+
+resetBtn.addEventListener("click", reset);
+incrementSetBtn.addEventListener("click", incrementSet);
   </script>
 </body>
 </html>
