@@ -1,29 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cali Stopwatch</title>
+  <title>Stopwatch and Set Counter</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --button-color: #3b82f6;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #1f2937;
+      --text-primary: #f9fafb;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    button {
+      background-color: var(--button-color);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="min-h-screen">
   <div class="container mx-auto px-4 py-12">
-    <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
       <h1 class="text-3xl font-bold mb-6">Stopwatch and Set Counter</h1>
       <div class="flex items-center justify-center mb-6">
         <span id="timer" class="text-5xl font-mono">00:00:00</span>
       </div>
       <div class="flex items-center justify-center mb-6">
-        <button id="startStopBtn" class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">Start</button>
-        <button id="resetBtn" class="bg-red-500 text-white px-4 py-2 rounded-lg">Reset</button>
+        <button id="startStopBtn" class="text-white px-4 py-2 rounded-lg mr-2">Start</button>
+        <button id="resetBtn" class="text-white px-4 py-2 rounded-lg">Reset</button>
       </div>
       <div class="flex items-center justify-center mb-6">
         <span class="text-xl font-bold mr-2">Sets:</span>
         <span id="setCounter" class="text-xl font-mono">0</span>
       </div>
       <div class="flex items-center justify-center mb-6">
-        <button id="incrementSetBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">Increment Set</button>
-        <button id="resetSetBtn" class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Reset Sets</button>
+        <button id="incrementSetBtn" class="text-white px-4 py-2 rounded-lg mr-2">Increment Set</button>
+        <button id="resetSetBtn" class="text-white px-4 py-2 rounded-lg">Reset Sets</button>
       </div>
     </div>
   </div>
