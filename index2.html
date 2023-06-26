@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stopwatch and Set Counter</title>
+  <title>Cali Stopwatch</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
   <style>
     :root {
@@ -28,7 +28,7 @@
 <body class="min-h-screen">
   <div class="container mx-auto px-4 py-12">
     <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-      <h1 class="text-3xl font-bold mb-6">Stopwatch and Set Counter</h1>
+      <h1 class="text-3xl font-bold mb-6 text-center">Cali Stopwatch</h1>
       <div class="flex items-center justify-center mb-6">
         <span id="timer" class="text-5xl font-mono">00:00:00</span>
       </div>
@@ -47,6 +47,7 @@
     </div>
   </div>
   <script>
+    <script>
     const timerElement = document.getElementById("timer");
 const startStopBtn = document.getElementById("startStopBtn");
 const resetBtn = document.getElementById("resetBtn");
@@ -119,6 +120,7 @@ startStopBtn.addEventListener("click", function () {
 resetBtn.addEventListener("click", reset);
 incrementSetBtn.addEventListener("click", incrementSet);
 resetSetBtn.addEventListener("click", resetSets);
+  </script>
   </script>
 </body>
 </html>
