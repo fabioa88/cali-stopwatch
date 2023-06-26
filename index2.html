@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stopwatch and Set Counter</title>
+  <title>Cali Stopwatch</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -21,8 +21,9 @@
         <span class="text-xl font-bold mr-2">Sets:</span>
         <span id="setCounter" class="text-xl font-mono">0</span>
       </div>
-      <div class="flex items-center justify-center">
-        <button id="incrementSetBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg">Increment Set</button>
+      <div class="flex items-center justify-center mb-6">
+        <button id="incrementSetBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">Increment Set</button>
+        <button id="resetSetBtn" class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Reset Sets</button>
       </div>
     </div>
   </div>
@@ -31,6 +32,7 @@
 const startStopBtn = document.getElementById("startStopBtn");
 const resetBtn = document.getElementById("resetBtn");
 const incrementSetBtn = document.getElementById("incrementSetBtn");
+const resetSetBtn = document.getElementById("resetSetBtn");
 const setCounterElement = document.getElementById("setCounter");
 
 let startTime;
@@ -83,6 +85,10 @@ function incrementSet() {
   setCounterElement.textContent = currentSet + 1;
 }
 
+function resetSets() {
+  setCounterElement.textContent = "0";
+}
+
 startStopBtn.addEventListener("click", function () {
   if (startStopBtn.textContent === "Start") {
     start();
@@ -93,6 +99,7 @@ startStopBtn.addEventListener("click", function () {
 
 resetBtn.addEventListener("click", reset);
 incrementSetBtn.addEventListener("click", incrementSet);
+resetSetBtn.addEventListener("click", resetSets);
   </script>
 </body>
 </html>
